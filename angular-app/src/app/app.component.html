@@ -1,0 +1,22 @@
+<h1>商品一覧</h1>
+<button (click)="loadProducts()">データ取得</button>
+
+<ul>
+  @for (product of products(); track product.id) {
+    <li>
+      <a href="#" (click)="loadProductDetail(product.id); $event.preventDefault()">
+        {{ product.name }} ({{ product.category }})
+      </a>
+    </li>
+  }
+</ul>
+
+@if (selectedProduct()) {
+  <div style="margin-top:20px; padding:10px; border:1px solid #ccc;">
+    <h2>詳細情報</h2>
+    <p><strong>ID:</strong> {{ selectedProduct()!.id }}</p>
+    <p><strong>名前:</strong> {{ selectedProduct()!.name }}</p>
+    <p><strong>価格:</strong> {{ selectedProduct()!.price }} 円</p>
+    <p><strong>カテゴリ:</strong> {{ selectedProduct()!.category }}</p>
+  </div>
+}
