@@ -3,3 +3,5 @@ angular-app/dist/
 angular-app/.angular/
 .DS_Store
 .env
+server/build/
+server/web/
