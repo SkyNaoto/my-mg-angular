@@ -3,8 +3,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-
-#define DB_FILE "sample.db"
+#ifndef DEFAULT_DB_PATH
+#define DEFAULT_DB_PATH "./sample.db"
+#endif
 
 // ----------------- 全件取得 -----------------
 static void send_products(struct mg_connection *c) {
@@ -15,7 +16,7 @@ static void send_products(struct mg_connection *c) {
     "FROM products p "
     "JOIN categories c ON p.category_id = c.id";
 
-  if (sqlite3_open(DB_FILE, &db) != SQLITE_OK) {
+  if (sqlite3_open(DEFAULT_DB_PATH, &db) != SQLITE_OK) {
     mg_http_reply(c, 500, "", "{ \"error\": \"DB open failed\" }");
     return;
   }
@@ -63,7 +64,7 @@ static void send_product_by_id(struct mg_connection *c, int product_id) {
     "JOIN categories c ON p.category_id = c.id "
     "WHERE p.id = ?";
 
-  if (sqlite3_open(DB_FILE, &db) != SQLITE_OK) {
+  if (sqlite3_open(DEFAULT_DB_PATH, &db) != SQLITE_OK) {
     mg_http_reply(c, 500, "", "{ \"error\": \"DB open failed\" }");
     return;
   }

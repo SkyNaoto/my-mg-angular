@@ -3,10 +3,14 @@ project(mg_server C)
 
 set(CMAKE_C_STANDARD 11)
 
+set(DEFAULT_DB_PATH "./sample.db" CACHE STRING "Default DB path")
+
 set(SOURCES
     main.c
     mongoose.c
 )
+
+add_compile_definitions(DEFAULT_DB_PATH=\"${DEFAULT_DB_PATH}\")
 
 add_executable(server ${SOURCES})
 

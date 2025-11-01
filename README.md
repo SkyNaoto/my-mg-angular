@@ -38,7 +38,8 @@ INSERT INTO products (name, price, category_id) VALUES
 4. ビルド
    　<CMake 使用しない場合>
      - gcc main.c mongoose.c -o server -lsqlite3 -lpthread
-     <CMake 使用する場合>
+    
+     <CMake 使用する場合 : 生成されたserver実行ファイルと同じディレクトリの sample.db を使用する場合>
      - server/build を作成
      - cd build でbuild フォルダへ移動
      - cmake -G Ninja ..　を実行
@@ -50,7 +51,14 @@ INSERT INTO products (name, price, category_id) VALUES
        コマンドの説明
        　ninja このコマンドでNinjaが生成されたビルドファイルを使用してプロジェクトをビルドする。
        　同時に、server/web, server/sample.db が server/build/にコピーされる。
-     
+    
+      <CMake 使用する場合 : /server/opt/data/ディレクトリの sample.db を使用する場合>
+     - server/build を作成
+     - cd build でbuild フォルダへ移動
+     - cmake -G Ninja .. -DDEFAULT_DB_PATH="/Users/naoto/All_Data/Study/AngularMongooseDB/my-mg-angular/server/opt/data/sample.db"　を実行
+     - ninja
+
+
 5. これで ./server でサーバーが起動する
 6. http://localhost:8000/ にブラウザーからアクセス
 7. これで ./server 単体(Mongoose server 単体)でブラウザーでコンテンツが見れる
