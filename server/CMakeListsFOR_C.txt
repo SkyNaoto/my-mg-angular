@@ -1,34 +1,18 @@
 cmake_minimum_required(VERSION 3.16)
-project(mg_server LANGUAGES C CXX)
+project(mg_server C)
 
-
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
+set(CMAKE_C_STANDARD 11)
 
 set(DEFAULT_DB_PATH "./sample.db" CACHE STRING "Default DB path")
 
-# Add the source files
-# set(SOURCES
-#     main.cpp
-#     mongoose.c
-# )
-
-# Add the C++ source file
-add_library(main_obj OBJECT main.cpp)
-set_target_properties(main_obj PROPERTIES POSITION_INDEPENDENT_CODE ON)
-
-# Add the C source file
-add_library(mongoose_obj OBJECT mongoose.c)
-set_target_properties(mongoose_obj PROPERTIES POSITION_INDEPENDENT_CODE ON)
-#set_target_properties(mongoose_obj PROPERTIES LINKER_LANGUAGE C)
-
-# Specify the output executable
-add_executable(server $<TARGET_OBJECTS:main_obj> $<TARGET_OBJECTS:mongoose_obj>)
-
-# Link the libraries
-#target_link_libraries(server PRIVATE sqlite3 pthread)
+set(SOURCES
+    main.c
+    mongoose.c
+)
 
 add_compile_definitions(DEFAULT_DB_PATH=\"${DEFAULT_DB_PATH}\")
+
+add_executable(server ${SOURCES})
 
 find_package(SQLite3 REQUIRED)
 target_link_libraries(server PRIVATE SQLite::SQLite3 pthread)
